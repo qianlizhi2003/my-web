@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="GB-58"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>火龙金种｜项目团队 - 黄皮火龙果离体快繁技术</title>
+
+<!-- 字体：科研展示推荐组合 -->
+<link href="https://fonts.googleapis.com/css2?family=Source+Han+Sans+SC:wght@300;400;500;600;700&family=Source+Han+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<!-- AOS -->
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+<style>
+/* ================= 全局设计系统 ================= */
+:root{
+  --primary:#7b0f13;
+  --gold:#d6b45a;
+  --dark:#0f172a;
+  --gray:#475569;
+  --bg-main:#f6f7f8;
+  --bg-section:#ffffff;
+  --bg-alt:#f8f4ec;
+  --glass:rgba(255,255,255,.82);
+  --shadow:0 28px 60px rgba(0,0,0,.12);
+  --radius:18px;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Source Han Sans SC',sans-serif;
+  background:var(--bg-main);
+  color:var(--dark);
+  line-height:1.7;
+  scroll-behavior: smooth;
+}
+
+h1,h2,h3{
+  font-family:'Source Han Serif SC',serif;
+  letter-spacing:.5px;
+}
+
+.container{
+  max-width:1400px;
+  margin:auto;
+  padding:0 28px;
+}
+
+section{
+  padding:110px 0;
+  background:var(--bg-section);
+}
+
+.section-bg{
+  background:var(--bg-alt);
+}
+
+/* ================= 顶部进度条 ================= */
+#progress{
+  position:fixed;
+  top:0;left:0;
+  height:4px;width:0;
+  background:linear-gradient(90deg,var(--primary),var(--gold));
+  z-index:3000;
+  transition: width 0.1s ease;
+}
+
+/* ================= NAV ================= */
+header{
+  position:fixed;
+  width:100%;
+  top:0;
+  z-index:2000;
+  background:rgba(255,255,255,.88);
+  backdrop-filter:blur(14px);
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
+  transition: all 0.3s ease;
+}
+
+nav{
+  height:78px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-size:1.7rem;
+  font-weight:700;
+  color:var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-links{
+  list-style:none;
+  display:flex;
+  gap:34px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a{
+  text-decoration:none;
+  color:var(--dark);
+  font-weight:500;
+  position:relative;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--primary);
+}
+
+.nav-links a::after{
+  content:'';
+  position:absolute;
+  left:0;bottom:-8px;
+  width:0;height:3px;
+  background:linear-gradient(90deg,var(--primary),var(--gold));
+  transition:.35s;
+}
+.nav-links a:hover::after{width:100%}
+
+/* ================= 团队部分样式 ================= */
+.team-section {
+  padding: 100px 0;
+  background: linear-gradient(135deg, #f8f4ec 0%, #f6f7f8 100%);
+}
+
+.team-section .section-title {
+  text-align:center;
+  font-size:2.7rem;
+  margin-bottom: 20px;
+}
+
+.team-section .section-title span{
+  background:linear-gradient(90deg,var(--primary),var(--gold));
+  -webkit-background-clip:text;
+  background-clip: text;
+  color:transparent;
+}
+
+.team-section .section-subtitle {
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--gray);
+  max-width: 900px;
+  margin: 0 auto 70px;
+  line-height: 1.6;
+}
+
+/* 团队成员卡片布局 - 适配5个成员的美观排版 */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 35px;
+  margin-top: 30px;
+}
+
+.team-card {
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius);
+  padding: 0 0 30px 0;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: .4s;
+  border-top: 5px solid transparent;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.team-card:hover {
+  transform: translateY(-14px) scale(1.02);
+  border-top: 5px solid var(--gold);
+  box-shadow: 0 35px 70px rgba(0,0,0,0.15);
+}
+
+.team-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(90deg, var(--primary), var(--gold));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease;
+}
+
+.team-card:hover::before {
+  transform: scaleX(1);
+}
+
+.team-avatar {
+  height: 200px;
+  background: linear-gradient(135deg, rgba(123, 15, 19, 0.1), rgba(214, 180, 90, 0.2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.team-avatar i {
+  font-size: 4rem;
+  color: rgba(123, 15, 19, 0.2);
+  position: absolute;
+  z-index: 1;
+}
+
+/* ========== 头像样式 - 证件照版本（已修复层级问题） ========== */
+.avatar-img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease;
+  overflow: hidden;
+  border: 4px solid white;
+  background: linear-gradient(135deg, var(--primary), var(--gold));
+}
+
+/* 证件照图片样式 - 核心修复：添加position和z-index确保图片显示 */
+.avatar-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center; /* 确保图片中心点在圆形中心 */
+  transition: transform 0.3s ease;
+  /* 新增的关键样式：解决图片被覆盖的问题 */
+  position: relative;
+  z-index: 2;
+}
+
+/* 头像悬停效果 */
+.team-card:hover .avatar-img {
+  transform: scale(1.05);
+}
+
+.team-card:hover .avatar-photo {
+  transform: scale(1.1);
+}
+
+/* 如果图片加载失败，显示备用样式 */
+.avatar-fallback {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 3rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--primary), var(--gold));
+  z-index: 1; /* 在图片下方 */
+}
+
+.team-info {
+  padding: 30px 25px 20px;
+  text-align: center;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.team-name {
+  font-size: 1.5rem;
+  margin: 0 0 8px 0;
+  color: var(--dark);
+}
+
+.team-title {
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 0 0 15px 0;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(123, 15, 19, 0.1);
+}
+
+.team-desc {
+  color: var(--gray);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0 0 20px 0;
+  flex-grow: 1;
+}
+
+.team-expertise {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.expertise-tag {
+  background: rgba(123, 15, 19, 0.08);
+  color: var(--primary);
+  padding: 4px 10px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.expertise-tag:hover {
+  background: rgba(123, 15, 19, 0.15);
+  transform: translateY(-2px);
+}
+
+/* 团队统计 */
+.team-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  margin-top: 80px;
+  padding: 40px;
+  background: var(--glass);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0 0 10px 0;
+  font-family: 'Source Han Serif SC', serif;
+}
+
+.stat-label {
+  font-size: 1rem;
+  color: var(--gray);
+}
+
+/* 按钮样式 */
+.btn{
+  display:inline-block;
+  padding:12px 26px;
+  border-radius:999px;
+  background:linear-gradient(135deg,var(--primary),var(--gold));
+  color:#fff;
+  text-decoration:none;
+  font-weight:500;
+  border:none;
+  cursor:pointer;
+  box-shadow:0 12px 30px rgba(0,0,0,.15);
+  transition:.3s;
+  font-family: 'Source Han Sans SC', sans-serif;
+  margin: 0 10px 15px 10px; /* 增加按钮间距，适配移动端换行 */
+}
+.btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 15px 35px rgba(0,0,0,.2);
+}
+
+/* 按钮容器样式（新增：保证两个按钮排版美观） */
+.btn-group {
+  text-align: center;
+  margin-top: 60px;
+}
+
+/* ================= FOOTER ================= */
+footer{
+  background:#020617;
+  color:#9ca3af;
+  padding:80px 0 40px;
+}
+
+footer h4{
+  color:#fff;
+  font-size:1.6rem;
+  margin-bottom: 20px;
+}
+
+footer p {
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+.copyright{
+  text-align:center;
+  margin-top:60px;
+  font-size:.9rem;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+/* ================= 响应式调整 ================= */
+@media(max-width: 1400px) {
+  .team-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+  }
+}
+
+@media(max-width: 1200px) {
+  .team-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .team-stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media(max-width: 992px) {
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .team-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px 20px;
+  }
+  
+  .nav-links {
+    gap: 20px;
+  }
+}
+
+@media(max-width: 768px) {
+  .team-grid {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .team-stats {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 30px 20px;
+  }
+  
+  .team-section .section-title {
+    font-size: 2.2rem;
+  }
+  
+  .team-section .section-subtitle {
+    font-size: 1.1rem;
+    padding: 0 20px;
+  }
+  
+  .team-avatar {
+    height: 180px;
+  }
+  
+  .avatar-img {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .avatar-fallback {
+    font-size: 2.5rem;
+  }
+  
+  .nav-links {
+    display: none;
+  }
+  
+  /* 移动端菜单按钮 */
+  .menu-toggle {
+    display: block;
+    font-size: 1.5rem;
+    color: var(--primary);
+    cursor: pointer;
+  }
+}
+
+@media(max-width: 576px) {
+  .team-section {
+    padding: 80px 0;
+  }
+  
+  .container {
+    padding: 0 20px;
+  }
+  
+  .team-info {
+    padding: 25px 20px 15px;
+  }
+  
+  .team-name {
+    font-size: 1.4rem;
+  }
+  
+  .team-title {
+    font-size: 0.95rem;
+  }
+  
+  .avatar-img {
+    width: 110px;
+    height: 110px;
+  }
+  
+  /* 移动端按钮独占一行 */
+  .btn {
+    width: 90%;
+    margin: 0 auto 15px auto;
+    display: block;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="progress"></div>
+
+<header>
+<div class="container">
+<nav>
+<div class="logo">
+  <img src="images/logo.png" alt="" style="width: 100px; height: 100px;"> 火龙金种
+</div>
+<ul class="nav-links">
+<li><a href="火龙金种gpt.html#hero">项目概述</a></li>
+<li><a href="火龙金种gpt.html#tech">技术优势</a></li>
+<li><a href="火龙金种gpt.html#data">数据对比</a></li>
+<li><a href="火龙金种gpt.html#application">应用前景</a></li>
+<li><a href="火龙金种gpt.html#team">项目团队</a></li>
+<li><a href="火龙金种gpt.html#contact">联系我们</a></li>
+<!-- 导航栏也新增返回首页（可选，如需移除可删除） -->
+<li><a href="火龙金种gpt.html">返回首页</a></li>
+</ul>
+</nav>
+</div>
+</header>
+
+<!-- 团队部分 -->
+<section id="team" class="team-section">
+  <div class="container">
+    <h2 class="section-title">项目<span>团队</span></h2>
+    <p class="section-subtitle">我们的团队由植物科学、生物技术、农业经济和市场营销等领域的专家组成，共同致力于黄皮火龙果离体快繁技术的研究与产业化应用。</p>
+    
+    <!-- 5个成员卡片 - 排版整齐，适配不同屏幕 -->
+    <div class="team-grid">
+      <!-- 成员1：钱力志 -->
+      <div class="team-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="team-avatar">
+          <i class="fas fa-chart-line"></i>
+          <div class="avatar-img">
+            <img class="avatar-photo" src="images/钱力志.jpg" alt="钱力志证件照">
+            <div class="avatar-fallback">钱</div>
+          </div>
+        </div>
+        <div class="team-info">
+          <h3 class="team-name">钱力志</h3>
+          <div class="team-title">农业经济｜商业模型</div>
+          <p class="team-desc">硕士，农业产业化与市场营销专家，擅长农业技术商业化运作，曾成功推动3项农业技术成果转化。</p>
+          <div class="team-expertise">
+            <span class="expertise-tag">商业模型</span>
+            <span class="expertise-tag">市场分析</span>
+            <span class="expertise-tag">成果转化</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 成员2：赵仁祺 -->
+      <div class="team-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="team-avatar">
+          <i class="fas fa-seedling"></i>
+          <div class="avatar-img">
+            <img class="avatar-photo" src="images/赵仁祺.jpg" alt="赵仁祺证件照">
+            <div class="avatar-fallback">赵</div>
+          </div>
+        </div>
+        <div class="team-info">
+          <h3 class="team-name">赵仁祺</h3>
+          <div class="team-title">实验室管理｜质量控制</div>
+          <p class="team-desc">博士，实验室管理专家，8年植物组织培养实验室管理经验，建立了一套完整的质量控制体系，确保种苗生产标准化。</p>
+          <div class="team-expertise">
+            <span class="expertise-tag">实验室管理</span>
+            <span class="expertise-tag">质量控制</span>
+            <span class="expertise-tag">标准化</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 成员3：王婷 -->
+      <div class="team-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="team-avatar">
+          <i class="fas fa-laptop-code"></i>
+          <div class="avatar-img">
+            <img class="avatar-photo" src="images/王婷.jpg" alt="王婷证件照">
+            <div class="avatar-fallback">王</div>
+          </div>
+        </div>
+        <div class="team-info">
+          <h3 class="team-name">王婷</h3>
+          <div class="team-title">信息技术｜数据分析</div>
+          <p class="team-desc">硕士，生物信息学专家，负责实验数据收集与分析，优化培养参数，建立数字化管理平台，提升生产效率30%。</p>
+          <div class="team-expertise">
+            <span class="expertise-tag">数据分析</span>
+            <span class="expertise-tag">生物信息</span>
+            <span class="expertise-tag">数字化管理</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 成员4：马艺阁 -->
+      <div class="team-card" data-aos="fade-up" data-aos-delay="400">
+        <div class="team-avatar">
+          <i class="fas fa-cogs"></i>
+          <div class="avatar-img">
+            <img class="avatar-photo" src="images/马艺阁.jpg" alt="马艺阁证件照">
+            <div class="avatar-fallback">马</div>
+          </div>
+        </div>
+        <div class="team-info">
+          <h3 class="team-name">马艺阁</h3>
+          <div class="team-title">农业工程｜设备研发</div>
+          <p class="team-desc">博士，农业工程专家，专注于组织培养设备研发与优化，设计并改进了多款自动化培养设备，提高生产效率。</p>
+          <div class="team-expertise">
+            <span class="expertise-tag">设备研发</span>
+            <span class="expertise-tag">自动化</span>
+            <span class="expertise-tag">工程优化</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 成员5：沈美兰 -->
+      <div class="team-card" data-aos="fade-up" data-aos-delay="500">
+        <div class="team-avatar">
+          <i class="fas fa-bullhorn"></i>
+          <div class="avatar-img">
+            <img class="avatar-photo" src="images/沈美兰.jpg" alt="沈美兰证件照">
+            <div class="avatar-fallback">沈</div>
+          </div>
+        </div>
+        <div class="team-info">
+          <h3 class="team-name">沈美兰</h3>
+          <div class="team-title">市场营销｜品牌建设</div>
+          <p class="team-desc">硕士，市场营销专家，10年农业品牌建设经验，成功打造多个农业技术品牌，擅长市场推广与渠道建设。</p>
+          <div class="team-expertise">
+            <span class="expertise-tag">市场营销</span>
+            <span class="expertise-tag">品牌建设</span>
+            <span class="expertise-tag">渠道拓展</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 团队统计数据 -->
+    <div class="team-stats" data-aos="fade-up" data-aos-delay="600">
+      <div class="stat-item">
+        <div class="stat-number" data-count="5">0</div>
+        <div class="stat-label">核心团队成员</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-count="28">0</div>
+        <div class="stat-label">发表论文总数</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-count="15">0</div>
+        <div class="stat-label">技术专利数量</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-count="100">0</div>
+        <div class="stat-label">项目成功率%</div>
+      </div>
+    </div>
+    
+    <!-- 重构按钮区域：两个按钮样式一致，排版美观 -->
+    <div class="btn-group">
+      <a href="火龙金种gpt.html#contact" class="btn">加入我们</a>
+      <a href="火龙金种gpt.html" class="btn">返回首页</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+<div class="container">
+<h4>火龙金种</h4>
+<p>三创赛参赛项目｜黄皮火龙果离体快繁技术<br>通过标准化组织培养技术，实现黄皮火龙果高效、稳定的规模化生产，推动特色农业产业发展。</p>
+<div class="copyright">? 2026 火龙金种团队 | 版权所有</div> <!-- 修复版权符号 -->
+</div>
+</footer>
+
+<!-- JS -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+// 初始化AOS动画库
+AOS.init({
+  duration:900,
+  easing:'ease-out-cubic',
+  once:true,
+  offset:120
+});
+
+// 进度条效果
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  const scrollTop = h.scrollTop;
+  const scrollHeight = h.scrollHeight - h.clientHeight;
+  const scrollPercent = (scrollTop / scrollHeight) * 100;
+  document.getElementById('progress').style.width = scrollPercent + '%';
+  
+  // 导航栏滚动效果
+  const header = document.querySelector('header');
+  if (scrollTop > 50) {
+    header.style.boxShadow = '0 10px 30px rgba(0,0,0,0.12)';
+    header.style.backdropFilter = 'blur(14px)';
+  } else {
+    header.style.boxShadow = '0 5px 15px rgba(0,0,0,0.05)';
+    header.style.backdropFilter = 'blur(10px)';
+  }
+});
+
+// 数字跳动效果
+document.querySelectorAll('[data-count]').forEach(el=>{
+  const target = parseInt(el.dataset.count);
+  const increment = target / 50;
+  let current = 0;
+  
+  const updateCounter = () => {
+    if (current < target) {
+      current += increment;
+      el.innerText = Math.floor(current);
+      setTimeout(updateCounter, 30);
+    } else {
+      el.innerText = target;
+    }
+  };
+  
+  // 使用IntersectionObserver实现滚动到可视区域时开始计数
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        updateCounter();
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  
+  observer.observe(el);
+});
+
+// 移动端菜单功能
+const createMobileMenu = () => {
+  if (window.innerWidth <= 768) {
+    // 创建菜单切换按钮
+    const menuToggle = document.createElement('div');
+    menuToggle.className = 'menu-toggle';
+    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+    menuToggle.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--primary);
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      z-index: 3000;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    `;
+    
+    document.body.appendChild(menuToggle);
+    
+    const navLinks = document.querySelector('.nav-links');
+    
+    menuToggle.addEventListener('click', function() {
+      if (navLinks.style.display === 'flex') {
+        navLinks.style.display = 'none';
+        menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+      } else {
+        navLinks.style.display = 'flex';
+        navLinks.style.cssText = `
+          display: flex;
+          position: fixed;
+          top: 78px;
+          left: 0;
+          width: 100%;
+          background: rgba(255,255,255,0.95);
+          backdrop-filter: blur(10px);
+          flex-direction: column;
+          padding: 20px;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+          z-index: 2000;
+          gap: 20px;
+        `;
+        menuToggle.innerHTML = '<i class="fas fa-times"></i>';
+      }
+    });
+    
+    // 点击菜单项后关闭菜单
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.style.display = 'none';
+        menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+      });
+    });
+  }
+};
+
+// 页面加载完成后创建移动端菜单
+window.addEventListener('load', createMobileMenu);
+window.addEventListener('resize', () => {
+  const menuToggle = document.querySelector('.menu-toggle');
+  const navLinks = document.querySelector('.nav-links');
+  
+  if (window.innerWidth > 768) {
+    if (menuToggle) menuToggle.remove();
+    navLinks.style.display = 'flex';
+    navLinks.style.cssText = '';
+  } else {
+    createMobileMenu();
+  }
+});
+
+// 图片加载失败处理 - 备用方案
+document.querySelectorAll('.avatar-photo').forEach(img => {
+  img.addEventListener('error', function() {
+    // 图片加载失败时，隐藏图片，显示备用字母
+    this.style.display = 'none';
+  });
+});
+</script>
+</body>
+</html>

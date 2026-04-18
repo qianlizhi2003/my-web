@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="GB1-58">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>火龙金种｜黄皮火龙果离体快繁技术 - 三创赛科研项目</title>
+
+<!-- 字体：科研展示推荐组合 -->
+<link href="https://fonts.googleapis.com/css2?family=Source+Han+Sans+SC:wght@300;400;500;600;700&family=Source+Han+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<!-- AOS -->
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+<style>
+/* ================= 全局设计系统 ================= */
+:root{
+  --primary:#7b0f13;
+  --gold:#d6b45a;
+  --dark:#0f172a;
+  --gray:#475569;
+  --bg-main:#f6f7f8;
+  --bg-section:#ffffff;
+  --bg-alt:#f8f4ec;
+  --glass:rgba(255,255,255,.82);
+  --shadow:0 28px 60px rgba(0,0,0,.12);
+  --radius:18px;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Source Han Sans SC',sans-serif;
+  background:var(--bg-main);
+  color:var(--dark);
+  line-height:1.7;
+  scroll-behavior: smooth;
+}
+
+h1,h2,h3{
+  font-family:'Source Han Serif SC',serif;
+  letter-spacing:.5px;
+}
+
+.container{
+  max-width:1300px;
+  margin:auto;
+  padding:0 28px;
+}
+
+section{
+  padding:110px 0;
+  background:var(--bg-section);
+}
+
+.section-bg{
+  background:var(--bg-alt);
+}
+
+/* ================= 顶部进度条 ================= */
+#progress{
+  position:fixed;
+  top:0;left:0;
+  height:4px;width:0;
+  background:linear-gradient(90deg,var(--primary),var(--gold));
+  z-index:3000;
+  transition: width 0.1s ease;
+}
+
+/* ================= NAV ================= */
+header{
+  position:fixed;
+  width:100%;
+  top:0;
+  z-index:2000;
+  background:rgba(255,255,255,.88);
+  backdrop-filter:blur(14px);
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
+  transition: all 0.3s ease;
+}
+
+nav{
+  height:78px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-size:1.7rem;
+  font-weight:700;
+  color:var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-links{
+  list-style:none;
+  display:flex;
+  gap:34px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a{
+  text-decoration:none;
+  color:var(--dark);
+  font-weight:500;
+  position:relative;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--primary);
+}
+
+.nav-links a::after{
+  content:'';
+  position:absolute;
+  left:0;bottom:-8px;
+  width:0;height:3px;
+  background:linear-gradient(90deg,var(--primary),var(--gold));
+  transition:.35s;
+}
+.nav-links a:hover::after{width:100%}
+
+/* ================= HERO ================= */
+.hero{
+  height:100vh;
+  display:grid;
+  align-items:center;
+  color:#fff;
+  background:
+    linear-gradient(120deg,rgba(0,0,0,.9),rgba(0,0,0,.55)),
+    url('https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+  background-size:cover;
+  background-position: center;
+  position:relative;
+}
+
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:60px;
+}
+
+.hero h1{
+  font-size:3.6rem;
+  line-height:1.25;
+  margin: 0 0 20px 0;
+}
+
+.hero p{
+  font-size:1.25rem;
+  color:#e5e7eb;
+  margin: 0 0 30px 0;
+}
+
+.hero-metrics{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:26px;
+  margin-top:46px;
+}
+
+.metric{
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:var(--radius);
+  padding:28px;
+  text-align:center;
+  transition: transform 0.3s ease;
+}
+
+.metric:hover {
+  transform: translateY(-5px);
+}
+
+.metric h3{
+  font-size:2.4rem;
+  color:var(--gold);
+  margin:0 0 10px 0;
+}
+
+.metric span {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.85);
+}
+
+/* ================= SECTION TITLE ================= */
+.section-title{
+  text-align:center;
+  font-size:2.7rem;
+  margin-bottom:70px;
+}
+
+.section-title span{
+  background:linear-gradient(90deg,var(--primary),var(--gold));
+  -webkit-background-clip:text;
+  background-clip: text;
+  color:transparent;
+}
+
+/* ================= GRID & CARD ================= */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:36px;
+}
+
+.card{
+  background:var(--glass);
+  backdrop-filter:blur(10px);
+  border-radius:var(--radius);
+  padding:42px 36px;
+  box-shadow:var(--shadow);
+  border-top:5px solid var(--gold);
+  transition:.4s;
+}
+
+.card:hover{
+  transform:translateY(-14px) scale(1.015);
+  box-shadow: 0 35px 70px rgba(0,0,0,0.15);
+}
+
+/* ================= 技术优势卡片特殊样式 ================= */
+.tech-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.tech-card .btn {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+/* ================= CHART ================= */
+.chart-box{
+  margin-top:80px;
+  background:#fff;
+  padding:50px;
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+
+/* ================= 应用前景 ================= */
+.application-cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:36px;
+  margin-top:60px;
+}
+
+.app-card{
+  background:var(--glass);
+  border-radius:var(--radius);
+  padding:42px 34px;
+  text-align:center;
+  box-shadow:var(--shadow);
+  border-top:4px solid var(--gold);
+  transition: transform 0.3s ease;
+}
+
+.app-card:hover {
+  transform: translateY(-10px);
+}
+
+.app-card i{
+  font-size:2.6rem;
+  color:var(--primary);
+  margin-bottom:20px;
+}
+
+/* ================= 项目文档 ================= */
+.project-docs{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:36px;
+  margin-top:60px;
+}
+
+.doc-card{
+  display:flex;
+  gap:26px;
+  background:var(--glass);
+  border-radius:var(--radius);
+  padding:34px;
+  box-shadow:var(--shadow);
+  border-left:5px solid var(--gold);
+  transition: transform 0.3s ease;
+}
+
+.doc-card:hover {
+  transform: translateX(5px);
+}
+
+.doc-icon{
+  font-size:2.6rem;
+  color:var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 60px;
+}
+
+/* ================= 按钮样式 ================= */
+.btn{
+  display:inline-block;
+  padding:12px 26px;
+  border-radius:999px;
+  background:linear-gradient(135deg,var(--primary),var(--gold));
+  color:#fff;
+  text-decoration:none;
+  font-weight:500;
+  border:none;
+  cursor:pointer;
+  box-shadow:0 12px 30px rgba(0,0,0,.15);
+  transition:.3s;
+  font-family: 'Source Han Sans SC', sans-serif;
+}
+.btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 15px 35px rgba(0,0,0,.2);
+}
+
+/* ================= 联系表单 ================= */
+.contact-container{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:60px;
+  margin-top:60px;
+}
+
+.contact-form{
+  max-width:760px;
+  background:var(--glass);
+  padding:48px;
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  backdrop-filter: blur(10px);
+}
+
+.form-group{
+  margin-bottom:22px;
+}
+
+.form-control{
+  width:100%;
+  padding:12px 14px;
+  border-radius:10px;
+  border:1px solid #cbd5e1;
+  font-family: 'Source Han Sans SC', sans-serif;
+  font-size: 1rem;
+  transition: border 0.3s ease;
+}
+
+.form-control:focus{
+  outline:none;
+  border-color:var(--gold);
+  box-shadow: 0 0 0 3px rgba(214, 180, 90, 0.2);
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--dark);
+}
+
+/* ================= 社交链接 ================= */
+.social-links{
+  display:flex;
+  gap:16px;
+  margin-top:26px;
+}
+
+.social-link{
+  width:42px;
+  height:42px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:var(--glass);
+  color:var(--primary);
+  box-shadow:var(--shadow);
+  transition:.3s;
+  text-decoration: none;
+}
+.social-link:hover{
+  transform:translateY(-4px);
+  background: var(--primary);
+  color: white;
+}
+
+/* ================= 工具卡片 ================= */
+.tool-box{
+  margin-top:40px;
+  background:#f1f5f4;
+  padding:28px;
+  border-radius:16px;
+  border-left: 4px solid var(--gold);
+}
+
+/* ================= 技术导航部分 ================= */
+.tech-navigation {
+  margin-top: 80px;
+  text-align: center;
+}
+
+.tech-nav-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.nav-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: var(--dark);
+  transition: transform 0.3s ease;
+  width: 180px;
+}
+
+.nav-button:hover {
+  transform: translateY(-10px);
+}
+
+.nav-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--primary), var(--gold));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  color: white;
+  font-size: 2rem;
+}
+
+.nav-button h4 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: var(--primary);
+}
+
+/* ================= FOOTER ================= */
+footer{
+  background:#020617;
+  color:#9ca3af;
+  padding:80px 0 40px;
+}
+
+footer h4{
+  color:#fff;
+  font-size:1.6rem;
+  margin-bottom: 20px;
+}
+
+footer p {
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+.copyright{
+  text-align:center;
+  margin-top:60px;
+  font-size:.9rem;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+/* ================= 响应式 ================= */
+@media(max-width:1024px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero h1{font-size:3rem}
+  .contact-container{grid-template-columns:1fr}
+  .tech-nav-buttons {gap: 15px;}
+  .nav-button {width: 150px;}
+}
+
+@media(max-width:768px){
+  .hero h1{font-size:2.6rem}
+  .section-title{font-size:2.2rem}
+  .hero-metrics{grid-template-columns:1fr; gap: 20px;}
+  .nav-links{gap: 20px;}
+  section{padding: 80px 0;}
+  .chart-box{padding: 30px 20px;}
+  .tech-nav-buttons {flex-direction: column; align-items: center;}
+}
+
+@media(max-width:576px){
+  .hero h1{font-size:2.2rem}
+  .nav-links{display: none;} /* 简化移动端导航 */
+  .logo{font-size: 1.4rem;}
+  .container{padding: 0 20px;}
+}
+</style>
+</head>
+
+<body>
+
+<div id="progress"></div>
+
+<header>
+<div class="container">
+<nav>
+<div class="logo"><i class="fas fa-dragon"></i> 火龙金种</div>
+<ul class="nav-links">
+<li><a href="#hero">项目概述</a></li>
+<li><a href="#tech">技术优势</a></li>
+<li><a href="#data">数据对比</a></li>
+<li><a href="#application">应用前景</a></li>
+<li><a href="standard-system.html">标准化体系</a></li>
+<li><a href="high-induction-medium.html">高诱导培养基</a></li>
+<li><a href="industrial-expansion.html">产业级扩展</a></li>
+<li><a href="team.html">项目团队</a></li>
+<li><a href="contact.html">联系我们</a></li>
+</ul>
+</nav>
+</div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+<div class="container hero-grid">
+<div>
+<h1>离体快繁<br>重塑黄皮火龙果繁育范式</h1>
+<p>构建标准化组织培养体系<br>解决稀有果种规模化、稳定化难题</p>
+
+<div class="hero-metrics">
+<div class="metric"><h3 data-count="300">0</h3><span>扩繁效率提升</span></div>
+<div class="metric"><h3 data-count="95">0</h3><span>移栽成活率 %</span></div>
+<div class="metric"><h3 data-count="60">0</h3><span>周期缩短 %</span></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- TECH -->
+<section id="tech">
+<div class="container">
+<h2 class="section-title" data-aos="fade-up">核心<span>技术优势</span></h2>
+<div class="grid">
+<div class="card tech-card" data-aos="fade-up">
+  <h3>标准化离体快繁体系</h3>
+  <p>建立稳定、可复制的组织培养流程，实现周年生产。</p>
+  <a href="standard-system.html" class="btn" style="margin-top:20px;">了解更多 →</a>
+</div>
+<div class="card tech-card" data-aos="fade-up" data-aos-delay="120">
+  <h3>高诱导率培养基</h3>
+  <p>愈伤组织诱导率超过90%，分化率达到85%。</p>
+  <a href="high-induction-medium.html" class="btn" style="margin-top:20px;">了解更多 →</a>
+</div>
+<div class="card tech-card" data-aos="fade-up" data-aos-delay="240">
+  <h3>产业级扩展能力</h3>
+  <p>实验室到工厂的无缝转化，年产能可达百万株。</p>
+  <a href="industrial-expansion.html" class="btn" style="margin-top:20px;">了解更多 →</a>
+</div>
+</div>
+
+<!-- 技术导航区域 -->
+<div class="tech-navigation" data-aos="fade-up">
+  <h3>详细技术介绍</h3>
+  <p>点击下方图标查看各项技术的详细内容</p>
+  <div class="tech-nav-buttons">
+    <a href="standard-system.html" class="nav-button">
+      <div class="nav-icon"><i class="fas fa-clipboard-check"></i></div>
+      <h4>标准化体系</h4>
+    </a>
+    <a href="high-induction-medium.html" class="nav-button">
+      <div class="nav-icon"><i class="fas fa-flask"></i></div>
+      <h4>高诱导培养基</h4>
+    </a>
+    <a href="industrial-expansion.html" class="nav-button">
+      <div class="nav-icon"><i class="fas fa-industry"></i></div>
+      <h4>产业级扩展</h4>
+    </a>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- DATA -->
+<section id="data" class="section-bg">
+<div class="container">
+<h2 class="section-title" data-aos="fade-up">核心<span>数据对比</span></h2>
+<div class="chart-box" data-aos="zoom-in">
+<canvas id="chart"></canvas>
+</div>
+</div>
+</section>
+
+<!-- APPLICATION -->
+<section id="application">
+<div class="container">
+<h2 class="section-title" data-aos="fade-up">应用<span>前景</span></h2>
+<div class="application-cards">
+<div class="app-card" data-aos="fade-up">
+  <i class="fas fa-tractor"></i>
+  <h3>种苗产业化</h3>
+  <p>建立规模化生产基地，满足市场优质种苗需求</p>
+</div>
+<div class="app-card" data-aos="fade-up" data-aos-delay="120">
+  <i class="fas fa-handshake"></i>
+  <h3>技术授权</h3>
+  <p>向种植企业和合作社授权技术，提升行业水平</p>
+</div>
+<div class="app-card" data-aos="fade-up" data-aos-delay="240">
+  <i class="fas fa-home"></i>
+  <h3>乡村振兴</h3>
+  <p>推动特色农业发展，助力农民增收致富</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- PROJECT DOCS -->
+<section id="project" class="section-bg">
+  <div class="container">
+    <h2 class="section-title" data-aos="fade-up">三创赛<span>项目材料</span></h2>
+    <p style="text-align:center;max-width:900px;margin:0 auto 40px;">
+      以下是我们的三创赛项目相关材料，欢迎下载查阅。
+    </p>
+
+    <div class="project-docs">
+      <div class="doc-card" data-aos="fade-up">
+        <div class="doc-icon"><i class="fas fa-file-pdf"></i></div>
+        <div class="doc-info">
+          <h3>项目计划书</h3>
+          <p>详细的项目实施方案、技术路线和市场分析</p>
+          <a href="#" class="btn" style="margin-top:15px;">下载 PDF</a>
+        </div>
+      </div>
+
+      <div class="doc-card" data-aos="fade-up" data-aos-delay="120">
+        <div class="doc-icon"><i class="fas fa-file-powerpoint"></i></div>
+        <div class="doc-info">
+          <h3>路演 PPT</h3>
+          <p>三创赛路演展示PPT，突出项目亮点与创新点</p>
+          <a href="#" class="btn" style="margin-top:15px;">下载 PPT</a>
+        </div>
+      </div>
+
+      <div class="doc-card" data-aos="fade-up" data-aos-delay="240">
+        <div class="doc-icon"><i class="fas fa-video"></i></div>
+        <div class="doc-info">
+          <h3>项目视频</h3>
+          <p>5分钟项目介绍视频，展示实验过程与成果</p>
+          <a href="#" class="btn" style="margin-top:15px;">观看视频</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+<div class="container">
+<h4>火龙金种</h4>
+<p>三创赛参赛项目｜黄皮火龙果离体快繁技术<br>通过标准化组织培养技术，实现黄皮火龙果高效、稳定的规模化生产，推动特色农业产业发展。</p>
+<div class="copyright">? 2026 火龙金种团队 | 版权所有</div>
+</div>
+</footer>
+
+<!-- JS -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+// 初始化AOS动画库
+AOS.init({
+  duration:900,
+  easing:'ease-out-cubic',
+  once:true,
+  offset:120
+});
+
+// GSAP 首屏动画
+gsap.from(".hero h1",{y:70,opacity:0,duration:1.3,ease:"power3.out"});
+gsap.from(".hero p",{y:40,opacity:0,delay:.3,duration:1.1});
+gsap.from(".metric",{y:30,opacity:0,delay:.6,duration:.9,stagger:.2});
+
+// 数字跳动效果
+document.querySelectorAll('[data-count]').forEach(el=>{
+  gsap.to(el,{
+    innerText:el.dataset.count,
+    duration:1.8,
+    snap:{innerText:1},
+    onUpdate:()=>el.innerText=Math.floor(el.innerText)
+  });
+});
+
+// 进度条效果
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  const scrollTop = h.scrollTop;
+  const scrollHeight = h.scrollHeight - h.clientHeight;
+  const scrollPercent = (scrollTop / scrollHeight) * 100;
+  document.getElementById('progress').style.width = scrollPercent + '%';
+  
+  // 导航栏滚动效果
+  const header = document.querySelector('header');
+  if (scrollTop > 50) {
+    header.style.boxShadow = '0 10px 30px rgba(0,0,0,0.12)';
+    header.style.backdropFilter = 'blur(14px)';
+  } else {
+    header.style.boxShadow = '0 5px 15px rgba(0,0,0,0.05)';
+    header.style.backdropFilter = 'blur(10px)';
+  }
+});
+
+// 图表初始化
+const ctx = document.getElementById('chart').getContext('2d');
+new Chart(ctx,{
+  type:'bar',
+  data:{
+    labels:['繁育周期(月)','成活率(%)','年产量(万株)','综合成本(%)'],
+    datasets:[
+      {
+        label:'传统方式',
+        data:[15,70,1,100],
+        backgroundColor:'#7b0f13',
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: 'rgba(123, 15, 19, 0.2)'
+      },
+      {
+        label:'离体快繁',
+        data:[6,95,4,50],
+        backgroundColor:'#d6b45a',
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: 'rgba(214, 180, 90, 0.2)'
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+        labels: {
+          font: {
+            family: "'Source Han Sans SC', sans-serif",
+            size: 14
+          }
+        }
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        ticks: {
+          font: {
+            family: "'Source Han Sans SC', sans-serif"
+          }
+        }
+      },
+      x: {
+        ticks: {
+          font: {
+            family: "'Source Han Sans SC', sans-serif"
+          }
+        }
+      }
+    }
+  }
+});
+
+// 移动端菜单切换
+const menuToggle = document.createElement('div');
+menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+menuToggle.style.cssText = `
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--primary);
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  z-index: 3000;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+`;
+
+document.body.appendChild(menuToggle);
+
+const navLinks = document.querySelector('.nav-links');
+
+menuToggle.addEventListener('click', function() {
+  navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+  navLinks.style.cssText = `
+    display: flex;
+    position: fixed;
+    top: 78px;
+    left: 0;
+    width: 100%;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    z-index: 2000;
+  `;
+});
+
+// 响应式显示/隐藏菜单按钮
+function checkScreenSize() {
+  if (window.innerWidth <= 576) {
+    menuToggle.style.display = 'flex';
+    navLinks.style.display = 'none';
+  } else {
+    menuToggle.style.display = 'none';
+    navLinks.style.display = 'flex';
+    navLinks.style.cssText = '';
+  }
+}
+
+window.addEventListener('resize', checkScreenSize);
+checkScreenSize();
+</script>
+</body>
+</html>

@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="GB1-58">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>高诱导率培养基 - 火龙金种</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Source+Han+Sans+SC:wght@300;400;500;600;700&family=Source+Han+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+<style>
+/* ================= 全局设计系统 ================= */
+:root{
+  --primary:#7b0f13;
+  --gold:#d6b45a;
+  --dark:#0f172a;
+  --gray:#475569;
+  --bg-main:#f6f7f8;
+  --bg-section:#ffffff;
+  --bg-alt:#f8f4ec;
+  --glass:rgba(255,255,255,.82);
+  --shadow:0 28px 60px rgba(0,0,0,.12);
+  --radius:18px;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Source Han Sans SC',sans-serif;
+  background:var(--bg-main);
+  color:var(--dark);
+  line-height:1.7;
+  scroll-behavior: smooth;
+}
+
+h1,h2,h3{
+  font-family:'Source Han Serif SC',serif;
+  letter-spacing:.5px;
+}
+
+.container{
+  max-width:1300px;
+  margin:auto;
+  padding:0 28px;
+}
+
+section{
+  padding:100px 0;
+  background:var(--bg-section);
+}
+
+.section-bg{
+  background:var(--bg-alt);
+}
+
+/* ================= 顶部进度条 ================= */
+#progress{
+  position:fixed;
+  top:0;left:0;
+  height:4px;width:0;
+  background:linear-gradient(90deg,var(--primary),var(--gold));
+  z-index:3000;
+  transition: width 0.1s ease;
+}
+
+/* ================= NAV ================= */
+header{
+  position:fixed;
+  width:100%;
+  top:0;
+  z-index:2000;
+  background:rgba(255,255,255,.88);
+  backdrop-filter:blur(14px);
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
+  transition: all 0.3s ease;
+}
+
+nav{
+  height:78px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-size:1.7rem;
+  font-weight:700;
+  color:var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-links{
+  list-style:none;
+  display:flex;
+  gap:34px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a{
+  text-decoration:none;
+  color:var(--dark);
+  font-weight:500;
+  position:relative;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--primary);
+}
+
+.nav-links a::after{
+  content:'';
+  position:absolute;
+  left:0;bottom:-8px;
+  width:0;height:3px;
+  background:linear-gradient(90deg,var(--primary),var(--gold));
+  transition:.35s;
+}
+.nav-links a:hover::after{width:100%}
+
+/* ================= 页面标题 ================= */
+.page-header {
+  background: linear-gradient(135deg, rgba(123, 15, 19, 0.1), rgba(214, 180, 90, 0.2));
+  padding: 180px 0 100px;
+  margin-top: 78px;
+  text-align: center;
+}
+
+.page-title {
+  font-size: 3.5rem;
+  margin-bottom: 20px;
+  color: var(--dark);
+}
+
+.page-subtitle {
+  font-size: 1.3rem;
+  color: var(--gray);
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ================= 技术内容部分 ================= */
+.tech-content {
+  padding: 100px 0;
+}
+
+.tech-overview {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  margin-bottom: 80px;
+  align-items: center;
+}
+
+.tech-text {
+  padding-right: 40px;
+}
+
+.tech-image {
+  background: linear-gradient(135deg, var(--primary), var(--gold));
+  height: 400px;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 5rem;
+  box-shadow: var(--shadow);
+}
+
+/* ================= 技术特点 ================= */
+.tech-features {
+  margin: 80px 0;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  margin-top: 50px;
+}
+
+.feature-card {
+  background: var(--glass);
+  padding: 40px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border-left: 5px solid var(--gold);
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+}
+
+.feature-icon {
+  font-size: 2.5rem;
+  color: var(--primary);
+  margin-bottom: 20px;
+}
+
+/* ================= 配方展示 ================= */
+.formula-showcase {
+  margin: 100px 0;
+  background: var(--bg-alt);
+  padding: 80px 0;
+  border-radius: var(--radius);
+}
+
+.formula-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  margin-top: 50px;
+}
+
+.formula-card {
+  background: white;
+  padding: 40px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.formula-card:hover {
+  transform: translateY(-10px);
+}
+
+.formula-title {
+  color: var(--primary);
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid var(--gold);
+}
+
+/* ================= 数据展示 ================= */
+.data-showcase {
+  margin: 80px 0;
+}
+
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-top: 50px;
+}
+
+.data-item {
+  text-align: center;
+  padding: 40px 30px;
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.data-number {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 10px;
+  font-family: 'Source Han Serif SC', serif;
+}
+
+.data-label {
+  color: var(--gray);
+  font-size: 1.1rem;
+}
+
+/* ================= 对比表格 ================= */
+.comparison-table {
+  margin: 80px 0;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+th {
+  background: linear-gradient(135deg, var(--primary), var(--gold));
+  color: white;
+  padding: 20px;
+  text-align: left;
+  font-weight: 600;
+}
+
+td {
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+tr:hover {
+  background: #f9f9f9;
+}
+
+/* ================= 按钮样式 ================= */
+.btn{
+  display:inline-block;
+  padding:12px 26px;
+  border-radius:999px;
+  background:linear-gradient(135deg,var(--primary),var(--gold));
+  color:#fff;
+  text-decoration:none;
+  font-weight:500;
+  border:none;
+  cursor:pointer;
+  box-shadow:0 12px 30px rgba(0,0,0,.15);
+  transition:.3s;
+  font-family: 'Source Han Sans SC', sans-serif;
+}
+.btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 15px 35px rgba(0,0,0,.2);
+}
+
+/* ================= FOOTER ================= */
+footer{
+  background:#020617;
+  color:#9ca3af;
+  padding:80px 0 40px;
+}
+
+footer h4{
+  color:#fff;
+  font-size:1.6rem;
+  margin-bottom: 20px;
+}
+
+footer p {
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+.copyright{
+  text-align:center;
+  margin-top:60px;
+  font-size:.9rem;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+/* ================= 响应式 ================= */
+@media(max-width: 992px) {
+  .tech-overview {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .tech-text {
+    padding-right: 0;
+  }
+  
+  .page-title {
+    font-size: 2.8rem;
+  }
+}
+
+@media(max-width: 768px) {
+  .page-header {
+    padding: 150px 0 80px;
+  }
+  
+  .page-title {
+    font-size: 2.3rem;
+  }
+  
+  .nav-links {
+    gap: 20px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="progress"></div>
+
+<header>
+<div class="container">
+<nav>
+<div class="logo">
+  <img src="images/logo.png" alt="" style="width: 100px; height: 100px;"> 火龙金种
+</div>
+<ul class="nav-links">
+<li><a href="火龙金种gpt.html">首页</a></li>
+<li><a href="标准化离体快繁体系.html">标准化体系</a></li>
+<li><a href="高诱导率培养基.html" style="color: var(--primary);">高诱导培养基</a></li>
+<li><a href="产业级扩展能力.html">产业级扩展</a></li>
+<li><a href="项目团队.html">项目团队</a></li>
+<li><a href="火龙金种gpt.html" "#contact">联系我们</a></li>
+</ul>
+</nav>
+</div>
+</header>
+
+<!-- 页面标题 -->
+<section class="page-header">
+  <div class="container">
+    <h1 class="page-title" data-aos="fade-up">高诱导率培养基</h1>
+    <p class="page-subtitle" data-aos="fade-up" data-aos-delay="200">
+      愈伤组织诱导率超过90%，分化率达到85%，通过优化激素配比和营养成分配方，实现黄皮火龙果高效组织培养。
+    </p>
+  </div>
+</section>
+
+<!-- 技术概述 -->
+<section class="tech-content">
+  <div class="container">
+    <div class="tech-overview">
+      <div class="tech-text" data-aos="fade-right">
+        <h2>培养基优化技术</h2>
+        <p>高诱导率培养基是我们经过数百次实验优化获得的专有配方，针对黄皮火龙果的生理特性进行了特别设计。</p>
+        <p>通过精确调控生长激素（如6-BA、NAA、IBA等）的比例和浓度，结合优化的矿质营养、有机成分和碳源，我们成功将愈伤组织诱导率从行业平均的70%提升至90%以上。</p>
+        <p>该培养基不仅诱导率高，而且分化能力强，分化率可达85%，显著高于传统培养基的60-70%，为快速繁殖提供了坚实基础。</p>
+      </div>
+      <div class="tech-image" data-aos="fade-left">
+        <i class="fas fa-flask"></i>
+      </div>
+    </div>
+
+    <!-- 技术特点 -->
+    <div class="tech-features">
+      <h2 class="section-title" data-aos="fade-up">技术<span>特点</span></h2>
+      <div class="feature-grid">
+        <div class="feature-card" data-aos="fade-up">
+          <div class="feature-icon"><i class="fas fa-percentage"></i></div>
+          <h3>高诱导率</h3>
+          <p>愈伤组织诱导率超过90%，为行业最高水平，确保材料利用率最大化。</p>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="feature-icon"><i class="fas fa-seedling"></i></div>
+          <h3>强分化能力</h3>
+          <p>分化率达到85%，能够高效形成完整植株，缩短培养周期。</p>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+          <h3>快速响应</h3>
+          <p>外植体接种后7天内即可观察到愈伤组织形成，生长速度提高40%。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 配方展示 -->
+    <div class="formula-showcase">
+      <div class="container">
+        <h2 class="section-title" data-aos="fade-up">核心<span>配方</span></h2>
+        <div class="formula-cards">
+          <div class="formula-card" data-aos="fade-up">
+            <div class="formula-title">诱导培养基</div>
+            <ul style="text-align: left; line-height: 1.8;">
+              <li>MS基础培养基（全量）</li>
+              <li>6-BA：2.0 mg/L</li>
+              <li>NAA：0.5 mg/L</li>
+              <li>蔗糖：30 g/L</li>
+              <li>琼脂：7 g/L</li>
+              <li>pH：5.8</li>
+            </ul>
+            <p style="margin-top: 20px; color: var(--primary); font-weight: 500;">诱导率：92%</p>
+          </div>
+          <div class="formula-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="formula-title">增殖培养基</div>
+            <ul style="text-align: left; line-height: 1.8;">
+              <li>MS基础培养基（全量）</li>
+              <li>6-BA：1.5 mg/L</li>
+              <li>KT：0.5 mg/L</li>
+              <li>蔗糖：30 g/L</li>
+              <li>琼脂：7 g/L</li>
+              <li>活性炭：0.5 g/L</li>
+            </ul>
+            <p style="margin-top: 20px; color: var(--primary); font-weight: 500;">增殖系数：5.2</p>
+          </div>
+          <div class="formula-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="formula-title">生根培养基</div>
+            <ul style="text-align: left; line-height: 1.8;">
+              <li>1/2MS基础培养基</li>
+              <li>IBA：1.0 mg/L</li>
+              <li>NAA：0.2 mg/L</li>
+              <li>蔗糖：20 g/L</li>
+              <li>琼脂：7 g/L</li>
+              <li>活性炭：1.0 g/L</li>
+            </ul>
+            <p style="margin-top: 20px; color: var(--primary); font-weight: 500;">生根率：96%</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 数据展示 -->
+    <div class="data-showcase">
+      <h2 class="section-title" data-aos="fade-up">性能<span>数据</span></h2>
+      <div class="data-grid">
+        <div class="data-item" data-aos="fade-up">
+          <div class="data-number" data-count="92">0</div>
+          <div class="data-label">愈伤组织诱导率</div>
+          <p style="margin-top: 10px; color: var(--gray);">行业平均70%</p>
+        </div>
+        <div class="data-item" data-aos="fade-up" data-aos-delay="100">
+          <div class="data-number" data-count="85">0</div>
+          <div class="data-label">分化率</div>
+          <p style="margin-top: 10px; color: var(--gray);">行业平均65%</p>
+        </div>
+        <div class="data-item" data-aos="fade-up" data-aos-delay="200">
+          <div class="data-number" data-count="5.2">0</div>
+          <div class="data-label">月增殖系数</div>
+          <p style="margin-top: 10px; color: var(--gray);">行业平均3.5</p>
+        </div>
+        <div class="data-item" data-aos="fade-up" data-aos-delay="300">
+          <div class="data-number" data-count="96">0</div>
+          <div class="data-label">生根率</div>
+          <p style="margin-top: 10px; color: var(--gray);">行业平均80%</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 对比表格 -->
+    <div class="comparison-table">
+      <h2 class="section-title" data-aos="fade-up">配方<span>对比</span></h2>
+      <table data-aos="fade-up">
+        <thead>
+          <tr>
+            <th>培养基成分</th>
+            <th>传统配方</th>
+            <th>优化配方</th>
+            <th>改进效果</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>6-BA浓度</td>
+            <td>1.0 mg/L</td>
+            <td>2.0 mg/L</td>
+            <td>诱导率提升20%</td>
+          </tr>
+          <tr>
+            <td>NAA浓度</td>
+            <td>1.0 mg/L</td>
+            <td>0.5 mg/L</td>
+            <td>减少愈伤组织褐化</td>
+          </tr>
+          <tr>
+            <td>碳源</td>
+            <td>蔗糖20 g/L</td>
+            <td>蔗糖30 g/L</td>
+            <td>生长速度提升30%</td>
+          </tr>
+          <tr>
+            <td>添加物</td>
+            <td>无</td>
+            <td>活性炭0.5 g/L</td>
+            <td>减少酚类物质毒害</td>
+          </tr>
+          <tr>
+            <td>pH值</td>
+            <td>5.6</td>
+            <td>5.8</td>
+            <td>更适黄皮火龙果生长</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 创新点 -->
+    <div class="tech-features" style="margin-top: 100px;">
+      <h2 class="section-title" data-aos="fade-up">技术<span>创新</span></h2>
+      <div class="feature-grid">
+        <div class="feature-card" data-aos="fade-up">
+          <div class="feature-icon"><i class="fas fa-atom"></i></div>
+          <h3>激素协同效应</h3>
+          <p>发现6-BA与NAA的最佳配比，产生协同效应，显著提高诱导和分化效率。</p>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="feature-icon"><i class="fas fa-filter"></i></div>
+          <h3>褐化抑制技术</h3>
+          <p>通过添加活性炭和优化激素比例，有效抑制愈伤组织褐化现象。</p>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="feature-icon"><i class="fas fa-chart-bar"></i></div>
+          <h3>数据驱动优化</h3>
+          <p>基于大量实验数据，采用响应面分析法优化培养基配方。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 返回按钮 -->
+    <div style="text-align: center; margin-top: 80px;">
+      <a href="标准化离体快繁体系.html" class="btn" style="margin-right: 20px;">上一技术：标准化体系</a>
+      <a href="产业级扩展能力.html" class="btn" style="background: transparent; border: 2px solid var(--primary); color: var(--primary);">下一技术：产业级扩展</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+<div class="container">
+<h4>火龙金种</h4>
+<p>三创赛参赛项目｜黄皮火龙果离体快繁技术<br>通过优化培养基配方，实现黄皮火龙果高效组织培养，突破传统繁殖瓶颈。</p>
+<div class="copyright">? 2026 火龙金种团队 | 版权所有</div>
+</div>
+</footer>
+
+<!-- JS -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script>
+// 初始化AOS动画库
+AOS.init({
+  duration:900,
+  easing:'ease-out-cubic',
+  once:true,
+  offset:120
+});
+
+// 进度条效果
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  const scrollTop = h.scrollTop;
+  const scrollHeight = h.scrollHeight - h.clientHeight;
+  const scrollPercent = (scrollTop / scrollHeight) * 100;
+  document.getElementById('progress').style.width = scrollPercent + '%';
+  
+  // 导航栏滚动效果
+  const header = document.querySelector('header');
+  if (scrollTop > 50) {
+    header.style.boxShadow = '0 10px 30px rgba(0,0,0,0.12)';
+    header.style.backdropFilter = 'blur(14px)';
+  } else {
+    header.style.boxShadow = '0 5px 15px rgba(0,0,0,0.05)';
+    header.style.backdropFilter = 'blur(10px)';
+  }
+});
+
+// 数字跳动效果
+document.querySelectorAll('[data-count]').forEach(el=>{
+  const target = parseInt(el.dataset.count);
+  const increment = target / 50;
+  let current = 0;
+  
+  const updateCounter = () => {
+    if (current < target) {
+      current += increment;
+      el.innerText = current.toFixed(1);
+      setTimeout(updateCounter, 30);
+    } else {
+      el.innerText = target.toFixed(1);
+    }
+  };
+  
+  // 使用IntersectionObserver实现滚动到可视区域时开始计数
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        updateCounter();
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  
+  observer.observe(el);
+});
+
+// 表格行悬停效果
+document.querySelectorAll('tbody tr').forEach(row => {
+  row.addEventListener('mouseenter', function() {
+    this.style.backgroundColor = '#f8f4ec';
+  });
+  
+  row.addEventListener('mouseleave', function() {
+    this.style.backgroundColor = '';
+  });
+});
+</script>
+</body>
+</html>

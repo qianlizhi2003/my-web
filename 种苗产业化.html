@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="GB-58">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>种苗产业化 - 火龙金种</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Source+Han+Sans+SC:wght@300;400;500;600;700&family=Source+Han+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+<style>
+/* 继承主页面的设计系统 */
+:root{
+  --primary:#7b0f13;
+  --gold:#d6b45a;
+  --dark:#0f172a;
+  --gray:#475569;
+  --bg-main:#f6f7f8;
+  --bg-section:#ffffff;
+  --bg-alt:#f8f4ec;
+  --glass:rgba(255,255,255,.82);
+  --shadow:0 28px 60px rgba(0,0,0,.12);
+  --radius:18px;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Source Han Sans SC',sans-serif;
+  background:var(--bg-main);
+  color:var(--dark);
+  line-height:1.7;
+  scroll-behavior: smooth;
+}
+
+h1,h2,h3{
+  font-family:'Source Han Serif SC',serif;
+  letter-spacing:.5px;
+}
+
+.container{
+  max-width:1300px;
+  margin:auto;
+  padding:0 28px;
+}
+
+/* 进度条 */
+#progress{
+  position:fixed;
+  top:0;left:0;
+  height:4px;width:0;
+  background:linear-gradient(90deg,var(--primary),var(--gold));
+  z-index:3000;
+  transition: width 0.1s ease;
+}
+
+/* 导航栏 */
+header{
+  position:fixed;
+  width:100%;
+  top:0;
+  z-index:2000;
+  background:rgba(255,255,255,.88);
+  backdrop-filter:blur(14px);
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
+  transition: all 0.3s ease;
+}
+
+nav{
+  height:78px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-size:1.7rem;
+  font-weight:700;
+  color:var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.nav-links{
+  list-style:none;
+  display:flex;
+  gap:34px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a{
+  text-decoration:none;
+  color:var(--dark);
+  font-weight:500;
+  position:relative;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--primary);
+}
+
+.nav-links a::after{
+  content:'';
+  position:absolute;
+  left:0;bottom:-8px;
+  width:0;height:3px;
+  background:linear-gradient(90deg,var(--primary),var(--gold));
+  transition:.35s;
+}
+.nav-links a:hover::after{width:100%}
+
+/* 页面头部 */
+.page-header {
+  padding: 180px 0 80px;
+  background: linear-gradient(135deg, rgba(123, 15, 19, 0.9), rgba(214, 180, 90, 0.8)),
+              url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  text-align: center;
+}
+
+.page-header h1 {
+  font-size: 3.5rem;
+  margin-bottom: 20px;
+}
+
+.page-header p {
+  font-size: 1.25rem;
+  max-width: 800px;
+  margin: 0 auto;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* 内容区域 */
+.content-section {
+  padding: 100px 0;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.7rem;
+  margin-bottom: 60px;
+}
+
+.section-title span {
+  background: linear-gradient(90deg, var(--primary), var(--gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* 特色卡片 */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  margin-top: 60px;
+}
+
+.feature-card {
+  background: var(--glass);
+  border-radius: var(--radius);
+  padding: 40px;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease;
+  border-top: 4px solid var(--gold);
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+}
+
+.feature-icon {
+  font-size: 3rem;
+  color: var(--primary);
+  margin-bottom: 20px;
+}
+
+.feature-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: var(--dark);
+}
+
+/* 数据展示 */
+.data-showcase {
+  background: var(--bg-alt);
+  padding: 80px 0;
+}
+
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-top: 50px;
+}
+
+.data-item {
+  text-align: center;
+  padding: 30px;
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.data-number {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 10px;
+}
+
+.data-label {
+  font-size: 1.1rem;
+  color: var(--gray);
+}
+
+/* 时间线 */
+.timeline {
+  position: relative;
+  max-width: 900px;
+  margin: 60px auto 0;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 100%;
+  background: var(--gold);
+}
+
+.timeline-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 60px;
+  position: relative;
+}
+
+.timeline-item:nth-child(odd) {
+  flex-direction: row;
+}
+
+.timeline-item:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.timeline-content {
+  width: 45%;
+  padding: 30px;
+  background: var(--glass);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  position: relative;
+}
+
+.timeline-content::before {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: var(--primary);
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.timeline-item:nth-child(odd) .timeline-content::before {
+  right: -50px;
+}
+
+.timeline-item:nth-child(even) .timeline-content::before {
+  left: -50px;
+}
+
+/* 按钮 */
+.btn{
+  display:inline-block;
+  padding:12px 26px;
+  border-radius:999px;
+  background:linear-gradient(135deg,var(--primary),var(--gold));
+  color:#fff;
+  text-decoration:none;
+  font-weight:500;
+  border:none;
+  cursor:pointer;
+  box-shadow:0 12px 30px rgba(0,0,0,.15);
+  transition:.3s;
+  font-family: 'Source Han Sans SC', sans-serif;
+}
+.btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 15px 35px rgba(0,0,0,.2);
+}
+
+/* 页脚 */
+footer{
+  background:#020617;
+  color:#9ca3af;
+  padding:40px 0 20px;
+}
+
+footer h4{
+  color:#fff;
+  font-size:1.6rem;
+  margin-bottom: 20px;
+}
+
+.copyright{
+  text-align:center;
+  margin-top:60px;
+  font-size:.9rem;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+/* 响应式 */
+@media(max-width: 768px) {
+  .page-header h1 {
+    font-size: 2.5rem;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .timeline::before {
+    left: 20px;
+  }
+  
+  .timeline-item {
+    flex-direction: column !important;
+  }
+  
+  .timeline-content {
+    width: 100%;
+    margin-left: 40px;
+  }
+  
+  .timeline-content::before {
+    left: -40px !important;
+    right: auto !important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="progress"></div>
+
+<header>
+<div class="container">
+<nav>
+<div class="logo">
+  <img src="images/logo.png" alt="" style="width: 100px; height: 100px;"> 火龙金种
+</div>
+<ul class="nav-links">
+<li><a href="火龙金种gpt.html">首页</a></li>
+<li><a href="种苗产业化.html" class="active">种苗产业化</a></li>
+<li><a href="技术授权.html">技术授权</a></li>
+<li><a href="乡村振兴.html">乡村振兴</a></li>
+</ul>
+</nav>
+</div>
+</header>
+
+<!-- 页面头部 -->
+<section class="page-header">
+<div class="container">
+<h1 data-aos="fade-up">种苗产业化</h1>
+<p data-aos="fade-up" data-aos-delay="200">
+建立规模化、标准化的黄皮火龙果种苗生产基地，推动产业升级，满足市场对优质种苗的持续需求。
+</p>
+</div>
+</section>
+
+<!-- 概述 -->
+<section class="content-section">
+<div class="container">
+<h2 class="section-title" data-aos="fade-up">产业<span>化模式</span></h2>
+<p style="text-align:center; max-width:900px; margin:0 auto 50px;" data-aos="fade-up">
+我们通过离体快繁技术，实现了黄皮火龙果种苗的工厂化生产。相比传统繁殖方式，我们的产业化模式具有产量高、质量稳、成本低、周期短等核心优势。
+</p>
+
+<div class="feature-grid">
+<div class="feature-card" data-aos="fade-up">
+<div class="feature-icon"><i class="fas fa-industry"></i></div>
+<h3>工厂化生产</h3>
+<p>建立标准化的组培生产车间，实现周年不间断生产。通过环境控制系统确保最佳生长条件，摆脱季节限制。</p>
+</div>
+
+<div class="feature-card" data-aos="fade-up" data-aos-delay="150">
+<div class="feature-icon"><i class="fas fa-robot"></i></div>
+<h3>自动化流程</h3>
+<p>引入自动化培养基配置、接种和移栽设备，减少人工操作，提高生产效率和一致性，降低污染率。</p>
+</div>
+
+<div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+<div class="feature-icon"><i class="fas fa-clipboard-check"></i></div>
+<h3>质量控制体系</h3>
+<p>建立从原料到成品的全流程质量控制标准，确保每一株种苗都符合优良种苗标准，保障种植户利益。</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- 数据展示 -->
+<section class="data-showcase">
+<div class="container">
+<h2 class="section-title" data-aos="fade-up">产业<span>化效益</span></h2>
+<div class="data-grid">
+<div class="data-item" data-aos="fade-up">
+<div class="data-number">100万+</div>
+<div class="data-label">年生产能力（株）</div>
+</div>
+
+<div class="data-item" data-aos="fade-up" data-aos-delay="150">
+<div class="data-number">85%</div>
+<div class="data-label">生产成本降低</div>
+</div>
+
+<div class="data-item" data-aos="fade-up" data-aos-delay="300">
+<div class="data-number">12个月</div>
+<div class="data-label">投资回收周期</div>
+</div>
+
+<div class="data-item" data-aos="fade-up" data-aos-delay="450">
+<div class="data-number">300+</div>
+<div class="data-label">可带动就业岗位</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- 实施路线 -->
+<section class="content-section">
+<div class="container">
+<h2 class="section-title" data-aos="fade-up">实施<span>路线图</span></h2>
+
+<div class="timeline">
+<div class="timeline-item" data-aos="fade-up">
+<div class="timeline-content">
+<h3>第一阶段：试点建设</h3>
+<p>建立2000平方米的组培实验基地，完成工艺流程验证，实现年产10万株种苗的示范生产能力。</p>
+</div>
+<div class="timeline-date">第1-6个月</div>
+</div>
+
+<div class="timeline-item" data-aos="fade-up" data-aos-delay="150">
+<div class="timeline-content">
+<h3>第二阶段：规模扩展</h3>
+<p>扩建至10000平方米生产车间，引入自动化设备，实现年产50万株种苗的规模化生产。</p>
+</div>
+<div class="timeline-date">第7-12个月</div>
+</div>
+
+<div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+<div class="timeline-content">
+<h3>第三阶段：市场拓展</h3>
+<p>建立全国销售网络，开展种植技术培训，与大型农业企业建立战略合作，占领高端种苗市场。</p>
+</div>
+<div class="timeline-date">第13-24个月</div>
+</div>
+
+<div class="timeline-item" data-aos="fade-up" data-aos-delay="450">
+<div class="timeline-content">
+<h3>第四阶段：产业升级</h3>
+<p>建立种质资源库，开展新品种研发，向种业科技公司转型，形成完整的产业链生态。</p>
+</div>
+<div class="timeline-date">第25-36个月</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- 合作机会 -->
+<section class="content-section" style="background: var(--bg-alt);">
+<div class="container">
+<h2 class="section-title" data-aos="fade-up">合作<span>机会</span></h2>
+<div style="max-width: 800px; margin: 0 auto; text-align: center;" data-aos="fade-up">
+<p style="font-size: 1.2rem; margin-bottom: 40px;">
+我们欢迎农业企业、种植合作社、投资者等多方合作伙伴，共同推进黄皮火龙果种苗产业化发展。
+</p>
+
+<div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 50px;">
+<a href="火龙金种gpt.html#application" class="btn">返回首页</a>
+<a href="技术授权.html" class="btn" style="background: var(--dark);">了解技术授权</a>
+<a href="乡村振兴.html" class="btn" style="background: var(--gray);">查看乡村振兴项目</a>
+</div>
+</div>
+</div>
+</section>
+
+<footer>
+<div class="container">
+<h4>火龙金种</h4>
+<p>三创赛参赛项目｜黄皮火龙果离体快繁技术<br>通过标准化组织培养技术，实现黄皮火龙果高效、稳定的规模化生产，推动特色农业产业发展。</p>
+<div class="copyright">2026 火龙金种团队 | 版权所有</div>
+</div>
+</footer>
+
+<!-- JS -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script>
+// 初始化AOS
+AOS.init({
+  duration: 900,
+  easing: 'ease-out-cubic',
+  once: true,
+  offset: 120
+});
+
+// 进度条效果
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const scrollTop = h.scrollTop;
+  const scrollHeight = h.scrollHeight - h.clientHeight;
+  const scrollPercent = (scrollTop / scrollHeight) * 100;
+  document.getElementById('progress').style.width = scrollPercent + '%';
+  
+  // 导航栏滚动效果
+  const header = document.querySelector('header');
+  if (scrollTop > 50) {
+    header.style.boxShadow = '0 10px 30px rgba(0,0,0,0.12)';
+    header.style.backdropFilter = 'blur(14px)';
+  } else {
+    header.style.boxShadow = '0 5px 15px rgba(0,0,0,0.05)';
+    header.style.backdropFilter = 'blur(10px)';
+  }
+});
+
+// 数字动画效果
+const dataNumbers = document.querySelectorAll('.data-number');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const target = entry.target;
+      const finalValue = parseInt(target.textContent);
+      let current = 0;
+      const increment = finalValue / 50;
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= finalValue) {
+          current = finalValue;
+          clearInterval(timer);
+        }
+        target.textContent = Math.floor(current).toLocaleString();
+      }, 30);
+      observer.unobserve(target);
+    }
+  });
+}, { threshold: 0.5 });
+
+dataNumbers.forEach(number => observer.observe(number));
+</script>
+</body>
+</html>
